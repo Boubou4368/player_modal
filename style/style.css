@@ -3,7 +3,8 @@
     min-width: 250px;
     color :aliceblue;
     /* background-color: rgba(49, 45, 52, 0.802); */
-    background-color: rgba(126, 125, 127, 0.802);
+    /* #2c5551ce */
+    background-color: #27352Ace;
     border-radius: 7%;
     padding : 10px;
 }
@@ -17,6 +18,7 @@
     min-height: 100px;
     min-width: 100px ;
 }
+
 .buttonPlayer {
     background-color: transparent;
 }

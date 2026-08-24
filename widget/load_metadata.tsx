@@ -22,14 +22,14 @@ export default function DynamicPlayer() {
     );
 
     // Fonction helper pour appliquer l'image en CSS
-    const updateCover = (filePath: string) => {
+    const updateCover = (filePath: string,width = 150) => {
         const cssData = `
             .cover-art {
                 background-image: url('file://${filePath}');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-                min-width: 150px;
+                min-width: ${width}px;
                 min-height: 150px;
                 border-radius: 12px;
             }
@@ -58,7 +58,11 @@ export default function DynamicPlayer() {
                 let localPath = "/tmp/current_cover1.jpg";
                 const [line] = source.read_line_finish_utf8(res);
                 if (line !== null) {
-                    const [title, artist, artUrl] = line.split('|');
+                    let [title, artist, artUrl] = line.split('|');
+
+                    if (title.length >= 25){
+                        title = title.slice(0,22)+"...";
+                    }
                     
                     titleLabel.set_label(title || "Inconnu");
                     artistLabel.set_label(artist || "");
@@ -77,7 +81,9 @@ export default function DynamicPlayer() {
                             // coverImage.set_from_file(localPath);
                             updateCover(localPath);
                         } else if (rawUrl.startsWith("file://")) {
-                            coverImage.set_from_file(rawUrl.replace("file://", ""));
+                            // coverImage.set_from_file(rawUrl.replace("file://", ""));
+                            localPath = rawUrl.replace("file://","");
+                            updateCover(localPath,220);
                         }
                     }
                     
@@ -93,9 +99,9 @@ export default function DynamicPlayer() {
 
     return (
         <box orientation={Gtk.Orientation.VERTICAL} spacing={10}>
-            {coverBox}            
-            {titleLabel}
-            {artistLabel}
+            {coverBox} 
+            <box halign={Gtk.Align.CENTER} class="title">{titleLabel}</box>           
+            <box halign={Gtk.Align.CENTER} class="artiste">{artistLabel}</box>
         </box>
     );
 }

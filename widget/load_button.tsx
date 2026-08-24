@@ -7,11 +7,15 @@ const PATH_PAUSE = "/home/boubou/Projet/perso/player_popup/images/pause_media.sv
 const PATH_PLAY = "/home/boubou/Projet/perso/player_popup/images/test.svg";
 const PATH_NEXT = "/home/boubou/Projet/perso/player_popup/images/next.svg";
 const PATH_PREVIOUS = "/home/boubou/Projet/perso/player_popup/images/previous.svg";
+const size_icone = 23
 
 export default function ButtonPlayer(){
     const imageWidget = Gtk.Image.new_from_file(PATH_PLAY);
     const imageNext = Gtk.Image.new_from_file(PATH_NEXT);
     const imagePrevious = Gtk.Image.new_from_file(PATH_PREVIOUS);
+    imageWidget.set_pixel_size(size_icone);
+    imageNext.set_pixel_size(size_icone);
+    imagePrevious.set_pixel_size(size_icone);
     let statusLabel = new Gtk.Label({label : "Paused"});
     let proc : Gio.Subprocess = launch_listener();
     proc.init(null)
@@ -36,19 +40,19 @@ export default function ButtonPlayer(){
     
 
     return (
-        <box orientation={Gtk.Orientation.HORIZONTAL} halign={Gtk.Align.CENTER} spacing={20}>
-        <button class="buttonPlayer fs" onClicked={() => exec("playerctl previous")}>
-            {imagePrevious}
-        </button>
-        <button 
-            class="buttonPlayer"
-            onClicked={togglePlay}
-        >
-            {imageWidget}
-        </button>
-        <button class="buttonPlayer fs" onClicked={() => exec("playerctl next")}>
-            {imageNext}
-        </button>
+        <box orientation={Gtk.Orientation.HORIZONTAL} halign={Gtk.Align.CENTER} spacing={20} hexpand={true}>
+            <button class="buttonPlayer fs" onClicked={() => exec("playerctl previous")}>
+                {imagePrevious}
+            </button>
+            <button 
+                class="buttonPlayer"
+                onClicked={togglePlay}
+            >
+                {imageWidget}
+            </button>
+            <button class="buttonPlayer fs" onClicked={() => exec("playerctl next")}>
+                {imageNext}
+            </button>
         </box>
     );
 }
