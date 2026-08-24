@@ -11,6 +11,7 @@ export default function DynamicPlayer() {
         css_classes : ["cover-art"],
     });
     coverImage.set_pixel_size(150);
+    let next = true
 
     /////////////////////////////////////////////////
 
@@ -33,7 +34,7 @@ export default function DynamicPlayer() {
                 border-radius: 12px;
             }
         `;
-        cssProvider.load_from_data(cssData, -1);
+        cssProvider.load_from_data(cssData,-1);
     };
 
     ////////////////////////////////////
@@ -54,6 +55,7 @@ export default function DynamicPlayer() {
     const readLine = () => {
         stream.read_line_async(GLib.PRIORITY_DEFAULT, null, (source, res) => {
             try {
+                let localPath = "/tmp/current_cover1.jpg";
                 const [line] = source.read_line_finish_utf8(res);
                 if (line !== null) {
                     const [title, artist, artUrl] = line.split('|');
@@ -64,7 +66,13 @@ export default function DynamicPlayer() {
                     if (artUrl) {
                         const rawUrl = artUrl.trim();
                         if (rawUrl.startsWith("http")) {
-                            const localPath = "/tmp/current_cover.jpg";
+                            if (next){
+                                localPath = "/tmp/current_cover1.jpg";
+                                next = false;
+                            } else {
+                                localPath = "/tmp/current_cover.jpg";
+                                next = true;
+                            }
                             GLib.spawn_command_line_sync(`curl -s -L -o ${localPath} "${rawUrl}"`);
                             // coverImage.set_from_file(localPath);
                             updateCover(localPath);

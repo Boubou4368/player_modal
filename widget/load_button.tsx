@@ -3,10 +3,10 @@ import GLib from "gi://GLib?version=2.0";
 import Gtk from "gi://Gtk?version=4.0";
 import { exec } from "ags/process";
 
-const PATH_PAUSE = "/home/boubou/Projet/perso/AGS/playerControllerTemplate/images/pause_media.svg";
-const PATH_PLAY = "/home/boubou/Projet/perso/AGS/playerControllerTemplate/images/test.svg";
-const PATH_NEXT = "/home/boubou/Projet/perso/AGS/playerControllerTemplate/images/next.svg";
-const PATH_PREVIOUS = "/home/boubou/Projet/perso/AGS/playerControllerTemplate/images/previous.svg";
+const PATH_PAUSE = "/home/boubou/Projet/perso/player_popup/images/pause_media.svg";
+const PATH_PLAY = "/home/boubou/Projet/perso/player_popup/images/test.svg";
+const PATH_NEXT = "/home/boubou/Projet/perso/player_popup/images/next.svg";
+const PATH_PREVIOUS = "/home/boubou/Projet/perso/player_popup/images/previous.svg";
 
 export default function ButtonPlayer(){
     const imageWidget = Gtk.Image.new_from_file(PATH_PLAY);
