@@ -1,0 +1,34 @@
+.main {
+    min-height: 250px;
+    min-width: 250px;
+    color :aliceblue;
+    /* background-color: rgba(49, 45, 52, 0.802); */
+    background-color: rgba(126, 125, 127, 0.802);
+    border-radius: 7%;
+    padding : 10px;
+}
+
+.image{
+    background-size: cover;
+    background-position: center;
+    border-radius: 10%;
+    margin: 25px 60px;
+    padding-bottom: 20px;
+    min-height: 100px;
+    min-width: 100px ;
+}
+.buttonPlayer {
+    background-color: transparent;
+}
+.buttonPlayer:hover{
+    background-color: rgba(240, 248, 255, 0.56);
+}
+
+.fs{
+    min-width: 50px;
+}
+
+.title{
+    font-size: 20px;
+    font-weight: 600;
+}
