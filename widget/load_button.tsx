@@ -60,7 +60,7 @@ export default function ButtonPlayer(){
 function launch_listener() {
     //lancement du process
     const proc = new Gio.Subprocess({
-        argv: ['playerctl','status','--follow'],
+        argv: ['/home/boubou/.config/waybar/script/media.sh'],
         flags: Gio.SubprocessFlags.STDOUT_PIPE,
     });
     return proc  
@@ -78,7 +78,8 @@ function readLine (stream : Gio.DataInputStream, statusLabel : Gtk.Label, imageW
         try {
             const [line] = source.read_line_finish_utf8(res);
             if (line !== null){
-                const [status] = line.split("|");
+                const jsonObject = JSON.parse(line);
+                let status = jsonObject.status
 
                 statusLabel.set_label(status || "Paused");
 

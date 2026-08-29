@@ -41,7 +41,7 @@ export default function DynamicPlayer() {
 
     // Lancement de playerctl en mode continu
     const proc = new Gio.Subprocess({
-        argv: ['playerctl', 'metadata', '--format', '{{title}}|{{artist}}|{{mpris:artUrl}}', '--follow'],
+        argv: ['/home/boubou/.config/waybar/script/media.sh'],
         flags: Gio.SubprocessFlags.STDOUT_PIPE,
     });
     proc.init(null);
@@ -58,11 +58,10 @@ export default function DynamicPlayer() {
                 let localPath = "/tmp/current_cover1.jpg";
                 const [line] = source.read_line_finish_utf8(res);
                 if (line !== null) {
-                    let [title, artist, artUrl] = line.split('|');
-
-                    if (title.length >= 25){
-                        title = title.slice(0,22)+"...";
-                    }
+                    const jsonObject = JSON.parse(line);
+                    let title = jsonObject.title;
+                    let artist = jsonObject.artist;
+                    let artUrl = jsonObject.cover_url;
                     
                     titleLabel.set_label(title || "Inconnu");
                     artistLabel.set_label(artist || "");
